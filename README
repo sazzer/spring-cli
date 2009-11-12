@@ -1,0 +1,21 @@
+To use:
+
+1) Add the following repository to your pom.xml
+<repository>                                                                                                                                                                                
+    <id>grahamcox.co.uk</id>                                                                                                                                                                  
+    <name>grahamcox.co.uk</name>                                                                                                                                                              
+    <url>http://grahamcox.co.uk/maven2</url>                                                                                                                                                  
+</repository>          
+
+Or else download, build and deploy yourself
+
+2) Add a file called spring-cli.properties to the root of your classpath
+This file should contain at least one entry with a key of "context" or "context.<something>", each of which specifies the resource name of a spring context file.
+This file can also include an entry called "runner" that specifies the name of the Spring Bean to actually run. If this isn't present then the bean called "runner" is used. This bean must implement Runnable.
+
+3) Write your Spring context files
+3a) There is a predefined bean called "arguments" that is a java.util.List<String> of the command line arguments.
+
+4) Build your app
+
+5) Execute uk.co.grahamcox.spring.cli.MainClass
