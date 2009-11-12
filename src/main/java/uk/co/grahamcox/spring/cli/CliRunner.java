@@ -3,9 +3,7 @@ package uk.co.grahamcox.spring.cli;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -30,23 +28,28 @@ public class CliRunner {
 	private Properties properties = new Properties();
 	/** The arguments to use */
 	private String[] args = new String[0];
-	/** The initial set of objects to define */
-	private Map<String, Object> initialSet = new HashMap<String, Object>();
 	
-	public void setProperties(final Properties properties) {
-		this.properties = properties;
+	/**
+	 * Add a properties file to use
+	 * @param properties the properties file to add
+	 */
+	public void addProperties(final Properties properties) {
+		this.properties.putAll(properties);
 	}
 	
+	/**
+	 * Set the application arguments to use
+	 * @param args the arguments
+	 */
 	public void setArguments(final String[] args) {
 		this.args = args;
 	}
 	
-	public void setInitialValue(final String name, final Object value) {
-		initialSet.put(name, value);
-	}
-	
 	/**
-	 * Actually run the app
+	 * Actually run the app. This works through the Properties that have been supplied to find the spring context files to be used, 
+	 * then builds a Spring Context using them. The Context is pre-seeded with a special bean called "arguments" that is a list of the
+	 * application arguments supplied, and then a special bean is requested from the context - the bean with the name specified in
+	 * the property "runner", or the bean called "runner" as a default - and the run() method on this bean is called.
 	 */
 	public void run() {
 		List<String> configFiles = new ArrayList<String>();

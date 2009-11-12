@@ -6,6 +6,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
 	<bean id="runner" class="uk.co.grahamcox.spring.cli.runners.DefaultRunner" />
 	<bean id="runnerTwo" class="uk.co.grahamcox.spring.cli.runners.SecondRunner" />
+	<bean id="throwingRunner" class="uk.co.grahamcox.spring.cli.runners.ThrowingRunner" />
 	<bean id="argsRunner" class="uk.co.grahamcox.spring.cli.runners.ArgsRunner">
 		<property name="arguments">
 			<ref bean="arguments" />

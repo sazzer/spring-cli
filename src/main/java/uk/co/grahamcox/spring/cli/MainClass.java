@@ -24,7 +24,7 @@ public class MainClass {
 		props.load(properties.getInputStream());
 		CliRunner runner = new CliRunner();
 		runner.setArguments(args);
-		runner.setProperties(props);
+		runner.addProperties(props);
 		runner.run();
 	}
 }
