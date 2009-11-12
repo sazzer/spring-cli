@@ -5,4 +5,10 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean id="runner" class="uk.co.grahamcox.spring.cli.runners.DefaultRunner" />
+	<bean id="runnerTwo" class="uk.co.grahamcox.spring.cli.runners.SecondRunner" />
+	<bean id="argsRunner" class="uk.co.grahamcox.spring.cli.runners.ArgsRunner">
+		<property name="arguments">
+			<ref bean="arguments" />
+		</property>
+	</bean>
 </beans>

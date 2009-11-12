@@ -1,6 +1,6 @@
 package uk.co.grahamcox.spring.cli.runners;
 
-public class DefaultRunner implements Runnable {
+public class SecondRunner implements Runnable {
 	public static int runCount;
 	
 	@Override
