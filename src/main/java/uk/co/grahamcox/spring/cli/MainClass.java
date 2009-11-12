@@ -12,7 +12,7 @@ import org.springframework.core.io.Resource;
  */
 public class MainClass {
 	/** The name of the properties file that specifies config to use */
-	private static final String PROPERTIES_FILE = "classpath:/spring-cli.properties";
+	private static final String PROPERTIES_FILE = "/spring-cli.properties";
 	/**
 	 * The main routine for the app
 	 * @param args the arguments
