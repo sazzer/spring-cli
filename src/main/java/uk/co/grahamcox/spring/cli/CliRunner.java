@@ -1,7 +1,6 @@
 package uk.co.grahamcox.spring.cli;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -64,7 +63,7 @@ public class CliRunner {
 		}
 		StaticApplicationContext parentContext = new StaticApplicationContext();
 		BeanDefinition argsBeanDefinition = 
-			BeanDefinitionBuilder.rootBeanDefinition(Arrays.class, "asList")
+			BeanDefinitionBuilder.rootBeanDefinition(Arguments.class)
 								 .addConstructorArgValue(args)
 								 .getBeanDefinition();
 		parentContext.registerBeanDefinition("arguments", 
