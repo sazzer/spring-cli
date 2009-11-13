@@ -4,7 +4,7 @@
   <groupId>uk.co.grahamcox.spring-cli</groupId>
   <artifactId>spring-cli</artifactId>
   <packaging>jar</packaging>
-  <version>0.1</version>
+  <version>0.2</version>
   <name>Command Line Interface using Spring</name>
   <description>Command Line Interface using Spring</description>
   <url>http://github.com/sazzer/spring-cli</url>
