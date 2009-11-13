@@ -1,12 +1,15 @@
 package uk.co.grahamcox.spring.cli;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Properties;
 
 import org.junit.Test;
 
 import uk.co.grahamcox.spring.cli.runners.ArgsRunner;
+import uk.co.grahamcox.spring.cli.runners.AutoArgsRunner;
 import uk.co.grahamcox.spring.cli.runners.DefaultRunner;
 import uk.co.grahamcox.spring.cli.runners.SecondRunner;
 
@@ -50,6 +53,17 @@ public class RunnerTest {
 		runner.setArguments(new String[]{"a", "b", "c"});
 		runner.run();
 		assertArrayEquals(new String[]{"a", "b", "c"}, ArgsRunner.args);
+	}
+	@Test
+	public void testAutowiredArgsRunner() {
+		Properties props = new Properties();
+		props.setProperty("context.1", "classpath:/runnerTest.xml");
+		props.setProperty("runner", "autoArgsRunner");
+		CliRunner runner = new CliRunner();
+		runner.addProperties(props);
+		runner.setArguments(new String[]{"a", "b", "c"});
+		runner.run();
+		assertArrayEquals(new String[]{"a", "b", "c"}, AutoArgsRunner.args);
 	}
 	@Test
 	public void testThrowingRunner() {
