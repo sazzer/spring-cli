@@ -4,6 +4,8 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    
 	<bean id="runner" class="uk.co.grahamcox.spring.cli.runners.DefaultRunner" />
 	<bean id="runnerTwo" class="uk.co.grahamcox.spring.cli.runners.SecondRunner" />
 	<bean id="throwingRunner" class="uk.co.grahamcox.spring.cli.runners.ThrowingRunner" />
