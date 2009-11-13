@@ -52,6 +52,7 @@ public class CliRunner {
 	 */
 	public void run() {
 		List<String> configFiles = new ArrayList<String>();
+		configFiles.add("classpath:/spring-cli.context");
 		Enumeration<Object> keys = properties.keys();
 		while (keys.hasMoreElements()) {
 			String key = keys.nextElement().toString();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    
+	<bean id="runner" class="uk.co.grahamcox.spring.cli.runners.DefaultRunner" />
+	<bean id="optionsRunner" class="uk.co.grahamcox.spring.cli.runners.OptionsRunner" />
+	
+	<bean class="org.apache.commons.cli.Option">
+		<constructor-arg><value>h</value></constructor-arg>
+		<constructor-arg><value>help</value></constructor-arg>
+		<constructor-arg><value>false</value></constructor-arg>
+		<constructor-arg><value>Get help with the application</value></constructor-arg>
+	</bean>	
+	
+	<bean class="org.apache.commons.cli.Option">
+		<constructor-arg><value>f</value></constructor-arg>
+		<constructor-arg><value>file</value></constructor-arg>
+		<constructor-arg><value>true</value></constructor-arg>
+		<constructor-arg><value>A filename</value></constructor-arg>
+		<property name="argName"><value>filename</value></property>
+	</bean>	
+	
+</beans>
