@@ -8,13 +8,18 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-
+/**
+ * Bean post processor for populating the {@link Options} object with all the {@link Option} objects in the context
+ * @author graham
+ *
+ */
 public class OptionsBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware {
 	/** The logger to use */
 	private final Log LOG = LogFactory.getLog(getClass());
 
 	/** The Application Context to use */
 	private ApplicationContext applicationContext;
+	
 	/**
 	 * Set the Application Context
 	 * @param context the context

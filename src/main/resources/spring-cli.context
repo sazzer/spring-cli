@@ -4,7 +4,11 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+    <bean class="uk.co.grahamcox.spring.cli.options.CommandLineBeanPostProcessor"/>
+
     <bean class="uk.co.grahamcox.spring.cli.options.OptionsBeanPostProcessor"/>
 
 	<bean class="org.apache.commons.cli.Options" />
+	
+	<bean class="org.apache.commons.cli.CommandLine" />
 </beans>

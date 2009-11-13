@@ -8,6 +8,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     
 	<bean id="runner" class="uk.co.grahamcox.spring.cli.runners.DefaultRunner" />
 	<bean id="optionsRunner" class="uk.co.grahamcox.spring.cli.runners.OptionsRunner" />
+	<bean id="commandLineRunner" class="uk.co.grahamcox.spring.cli.runners.CommandLineRunner" />
 	
 	<bean class="org.apache.commons.cli.Option">
 		<constructor-arg><value>h</value></constructor-arg>
@@ -24,4 +25,5 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 		<property name="argName"><value>filename</value></property>
 	</bean>	
 	
+	<bean class="org.apache.commons.cli.PosixParser" />
 </beans>
