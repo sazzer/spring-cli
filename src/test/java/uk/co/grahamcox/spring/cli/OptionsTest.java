@@ -57,4 +57,20 @@ public class OptionsTest {
 		assertEquals(true, WireCommandLineRunner.hasFile);
 		assertEquals(false, WireCommandLineRunner.hasHelp);
 	}
+	@Test
+	public void testWireCommandLineRunner2() {
+		Properties props = new Properties();
+		props.setProperty("context.1", "classpath:/optionsTest.xml");
+		props.setProperty("runner", "wireCommandLineRunner");
+		CliRunner runner = new CliRunner();
+		runner.addProperties(props);
+		runner.setArguments(new String[]{"--help"});
+		WireCommandLineRunner.file = null;
+		WireCommandLineRunner.hasFile = null;
+		WireCommandLineRunner.hasHelp = null;
+		runner.run();
+		assertNull(WireCommandLineRunner.file);
+		assertEquals(false, WireCommandLineRunner.hasFile);
+		assertEquals(true, WireCommandLineRunner.hasHelp);
+	}
 }
