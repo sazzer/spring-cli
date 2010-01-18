@@ -62,7 +62,10 @@ public class CommandLineBeanPostProcessor implements BeanPostProcessor, Applicat
 	public Object postProcessBeforeInitialization(final Object bean, final String name)
 			throws BeansException {
 		Object result = bean;
-		if (arguments != null &&
+        if (bean == null) {
+            result = null;
+        }
+		else if (arguments != null &&
 			commandLineParser != null &&
 			result instanceof CommandLine) {
 			String[] optionsNames = applicationContext.getBeanNamesForType(Options.class);
