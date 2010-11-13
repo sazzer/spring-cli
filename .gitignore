@@ -1,2 +1,5 @@
 target
+.classpath
+.settings
+.project
 /output
