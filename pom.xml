@@ -7,6 +7,13 @@
   <version>0.6</version>
   <name>Command Line Interface using Spring</name>
   <description>Command Line Interface using Spring</description>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <url>http://github.com/sazzer/spring-cli</url>
   <licenses>
     <license>
@@ -14,6 +21,11 @@
         <url>COPYING.LESSER</url>
     </license>
   </licenses>
+  <scm>
+    <developerConnection>scm:git:git@github.com:sazzer/spring-cli</developerConnection>
+    <connection>scm:git:git@github.com:sazzer/spring-cli</connection>
+    <url>git@github.com:sazzer/spring-cli</url>
+  </scm>
   <properties>
 	<spring-version>3.0.5.RELEASE</spring-version>
 	<slf4j.version>1.6.1</slf4j.version>
@@ -85,8 +97,38 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
       </plugin>
+
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>  
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <reporting>
   	<plugins>
   	</plugins>
