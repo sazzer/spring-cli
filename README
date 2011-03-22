@@ -1,21 +1,57 @@
-To use:
+Sring-CLI
+=========
+Graham Cox <graham@grahamcox.co.uk>
+v0.6
 
-1) Add the following repository to your pom.xml
-<repository>                                                                                                                                                                                
-    <id>grahamcox.co.uk</id>                                                                                                                                                                  
-    <name>grahamcox.co.uk</name>                                                                                                                                                              
-    <url>http://grahamcox.co.uk/maven2</url>                                                                                                                                                  
-</repository>          
+Quickstart
+----------
 
-Or else download, build and deploy yourself
+1. Add a file called spring-cli.properties to the root of your classpath. This file needs a single entry with a key of "context" and a value which is the Spring resource name of a Spring context file to use
+2. Write your Spring context files. Include in the context files a bean that implements java.lang.Runnable and has a bean ID of "runner". This is your entry point.
+3. Build your app
+4. Execute uk.co.grahamcox.spring.cli.MainClass
 
-2) Add a file called spring-cli.properties to the root of your classpath
-This file should contain at least one entry with a key of "context" or "context.<something>", each of which specifies the resource name of a spring context file.
-This file can also include an entry called "runner" that specifies the name of the Spring Bean to actually run. If this isn't present then the bean called "runner" is used. This bean must implement Runnable.
+Simple Configuration
+--------------------
+Spring-CLI supports simple configuration by the use of the spring-cli.properties file. This file allows for the application to specify a number of Spring context files to be loaded, and optionally the name of the bean to be instantiated and run.
 
-3) Write your Spring context files
-3a) There is a predefined bean called "arguments" that is a java.util.List<String> of the command line arguments.
+To specify a single context file it is recommended that you use a key of "context" as described above. This file may use standard Spring import statements as you wish in order to include other files without needing to specify properties for them all.
 
-4) Build your app
+To specify multiple context files you can instead specify multiple entries in the spring-cli.properties file, each of which has a key of context.<something> and a value of the Spring resource name of the context file. For example, the following will load three files. Two of these are on the classpath - /config/hessian/context.xml and /config/beans/context.xml - and the third is an absolute filesystem file - /opt/springcli/context.xml. You can have as many of these entries as you require.
+==================================
+context.hessian=classpath:/config/hessian/context.xml
+context.beans=classpath:/config/beans/context.xml
+context.local=file:/opt/springcli/context.xml
+==================================
 
-5) Execute uk.co.grahamcox.spring.cli.MainClass
+In addition to this, you can override the bean name of the entry point that is used. By default the bean with the ID of "runner" is used, but you can specify this bean name in the property file using a key of "runner". For example, the following will use the Context file /config/context.xml from the classpath, and will instantiate the bean with the ID "mainRunner" and execute that as the main entry point.
+==================================
+context=classpath:/config/context.xml
+runner=mainRunner
+==================================
+
+Command Line Arguments
+----------------------
+A large number of command line applications will take command line arguments that affect their operation. Spring-CLI handles this by using the Commons CLI package to parse the command line, and allows semi-automatic configuration of this to read and understand the command line.
+
+Configuration of command line parsing requires some elements to be added to your Spring context, but these will be used automatically by the Spring-CLI framework. The context may contain one bean that implements the org.apache.commons.cli.CommandLineParser interface, and a number of beans of type org.apache.commons.cli.Option. A bean of type org.apache.commons.cli.Options automatically exists in the context, and can be injected into any of the applications beans if desired, which will be automatically populated with every bean of type org.apache.commons.cli.Option. Further, if a bean that implements org.apache.commons.cli.CommandLineParser exists then this will be used to automatically parse the command line arguments as defined by the defined org.apache.commons.cli.Option beans. Manual injection of the CommandLineParser object is required as it allows for the application to specify the specific parser that is to be used.
+
+If you wish instead to access the command line arguments directly without using the Commons CLI parsing then this is also possible. However, it will depend on the application having a dependency on the Spring-CLI jar. The Spring context will automatically contain a bean of type uk.co.grahamcox.spring.cli.Arguments that allows for access to the command line arguments exactly as passed in to the application.
+
+Annotated Configuration
+~~~~~~~~~~~~~~~~~~~~~~~
+Often you will want to use command line arguments but not want to work with the Commons CLI code to extract them from the command line. It is possible instead to annotate your beans to automatically have command line arguments injected into them at startup.
+
+Currently you are required to provide a setter in your beans that with a single parameter that accepts either a boolean or String data type. This setter must then be annotated with the @WireOption annotation, which is given as a parameter the name of the option that is to be injected. If the setter accepts a boolean data type then it is given the value returned from CommandLine.hasOption(), and if it is given a String data type then it is given the value returned from CommandLine.getOptionValue(), both of which are passed in the option name as configured in the annotation. For example, the following defines two setters. The setHelpWanted() setter will be given a flag to indicate if the user specified they want help - typically by using -h or --help on the command line - and the setOutput() setter will be given a value to indicate the output to write to - for example by using --output=/tmp/log on the command line
+==============================
+@WireOption("h")
+public void setHelpWanted(final boolean help) {
+    this.helpWanted = help;
+}
+
+@WireOption("o")
+public void setOutput(final String output) {
+    this.output = output;
+}
+==============================
+
